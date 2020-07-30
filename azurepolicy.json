@@ -51,11 +51,11 @@
                   "allOf": [
                      {
                         "field": "Microsoft.Compute/virtualMachines/extensions/type",
-                        "equals": "MicrosoftMonitoringAgent"
+                        "equals": "IaaSDiagnostics"
                      },
                      {
                         "field": "Microsoft.Compute/virtualMachines/extensions/publisher",
-                        "equals": "Microsoft.EnterpriseCloud.Monitoring"
+                        "equals": "Microsoft.Azure.Diagnostics"
                      }
                   ]
                },
@@ -81,6 +81,9 @@
                            },
                            "existingdiagnosticsStorageAccountName": {
                               "type": "string"
+                           },
+                           "existingdiagnosticsStorageResourceGroup": {
+                              "type": "string"
                            }
                         },
                         "variables": {
@@ -96,7 +99,7 @@
                         "resources": [
                            {
                                "name": "Microsoft.Insights.VMDiagnosticsSettings",
-                               "type": "extensions",
+                               "type": "Microsoft.Compute/virtualMachines/extensions",
                                "location": "[resourceGroup().location]",
                                "apiVersion": "2015-06-15",
                                "dependsOn": [
@@ -143,6 +146,9 @@
                         },
                         "existingdiagnosticsStorageAccountName" :{
                            "value": "[parameters('existingdiagnosticsStorageAccountName')]"
+                        },
+                        "existingdiagnosticsStorageResourceGroup" :{
+                           "value": "[parameters('existingdiagnosticsStorageResourceGroup')]"
                         }
                      }
                   }

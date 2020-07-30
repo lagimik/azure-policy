@@ -14,5 +14,15 @@
          "description": "Select storage account from dropdown list",
          "strongType": "Microsoft.Storage/storageAccounts"
       }
+   },
+   "existingdiagnosticsStorageResourceGroup" :{
+      "type": "String",
+      "defaultValue": "diagnosticVMTest_group",
+      "metadata": {
+         "displayName": "Existing Storage Account Resource Group",
+         "description": "Select storage account from dropdown list"
+      }
    }
+
+   
 }
