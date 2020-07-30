@@ -1,0 +1,44 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "extensions_Microsoft_Insights_VMDiagnosticsSettings_xmlCfg": {
+            "type": "SecureString"
+        },
+        "extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountName": {
+            "type": "SecureString"
+        },
+        "extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountKey": {
+            "type": "SecureString"
+        },
+        "extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountEndPoint": {
+            "type": "SecureString"
+        }
+    },
+    "variables": {},
+    "resources": [
+   
+        {
+            "type": "Microsoft.Compute/virtualMachines/extensions",
+            "apiVersion": "2019-07-01",
+            "name": "diagnosticVMTest/Microsoft.Insights.VMDiagnosticsSettings",
+            "location": "eastus",
+            
+            "properties": {
+                "autoUpgradeMinorVersion": true,
+                "publisher": "Microsoft.Azure.Diagnostics",
+                "type": "IaaSDiagnostics",
+                "typeHandlerVersion": "1.5",
+                "settings": {
+                    "StorageAccount": "[parameters('extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountName')]",
+                    "xmlCfg": "[parameters('extensions_Microsoft_Insights_VMDiagnosticsSettings_xmlCfg')]"
+                },
+                "protectedSettings": {
+                    "storageAccountName": "[parameters('extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountName')]",
+                    "storageAccountKey": "[parameters('extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountKey')]",
+                    "storageAccountEndPoint": "[parameters('extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountEndPoint')]"
+                }
+            }
+        }
+    ]
+}

@@ -70,13 +70,11 @@
                    },
                   "resources": [
                      {
-                         "name": "Microsoft.Insights.VMDiagnosticsSettings",
+                         "name": "diagnosticVMTest/Microsoft.Insights.VMDiagnosticsSettings",
                          "type": "Microsoft.Compute/virtualMachines/extensions",
                          "location": "[resourceGroup().location]",
                          "apiVersion": "2015-06-15",
-                         "dependsOn": [
-                             "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'))]"
-                         ],
+                       
                          
                          "tags": {
                              "displayName": "AzureDiagnostics"
