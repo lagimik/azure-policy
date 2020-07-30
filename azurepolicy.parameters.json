@@ -13,6 +13,6 @@
    },
    "extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountEndPoint": {
       "type": "String",
-      "defaultValue": "https://core.windows.net"
+      "defaultValue": "https://blob.core.windows.net"
    }
 }
