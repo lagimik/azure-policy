@@ -1,28 +1,18 @@
 {
-   "logAnalytics": {
+   "extensions_Microsoft_Insights_VMDiagnosticsSettings_xmlCfg": {
       "type": "String",
-      "metadata": {
-         "displayName": "Log Analytics workspace",
-         "description": "Select Log Analytics workspace from dropdown list",
-         "strongType": "omsWorkspace"
-      }
+      "defaultValue": null
    },
-   "existingdiagnosticsStorageAccountName" :{
+   "extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountName": {
       "type": "String",
-      "metadata": {
-         "displayName": "Existing Storage Account",
-         "description": "Select storage account from dropdown list",
-         "strongType": "Microsoft.Storage/storageAccounts"
-      }
+      "defaultValue": "diagnosticvmtestgroupdia"
    },
-   "existingdiagnosticsStorageResourceGroup" :{
+   "extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountKey": {
       "type": "String",
-      "defaultValue": "diagnosticVMTest_group",
-      "metadata": {
-         "displayName": "Existing Storage Account Resource Group",
-         "description": "Select storage account from dropdown list"
-      }
+      "defaultValue": "0BtqruzPC3DPMJFcrzJODjgo391KGw3PXVPzhEpsbejXxtsKkQSdzNYqvB8hvMCivTRnBirdi583aQ9YXiXUtA=="
+   },
+   "extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountEndPoint": {
+      "type": "String",
+      "defaultValue": "https://core.windows.net"
    }
-
-   
 }

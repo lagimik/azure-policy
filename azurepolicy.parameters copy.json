@@ -1,0 +1,14 @@
+{
+      "extensions_Microsoft_Insights_VMDiagnosticsSettings_xmlCfg": {
+         "value": null
+      },
+      "extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountName": {
+         "value": "diagnosticvmtestgroupdia"
+      },
+      "extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountKey": {
+         "value": "0BtqruzPC3DPMJFcrzJODjgo391KGw3PXVPzhEpsbejXxtsKkQSdzNYqvB8hvMCivTRnBirdi583aQ9YXiXUtA=="
+      },
+      "extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountEndPoint": {
+         "value": "https://core.windows.net"
+      }
+}

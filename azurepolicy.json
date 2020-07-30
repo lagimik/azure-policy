@@ -8,21 +8,17 @@
          "category": "Compute"
       },
       "parameters": {
-         "logAnalytics": {
-            "type": "String",
-            "metadata": {
-               "displayName": "Log Analytics workspace",
-               "description": "Select Log Analytics workspace from dropdown list",
-               "strongType": "omsWorkspace"
-            },
-            "existingdiagnosticsStorageAccountName" :{
-               "type": "String",
-               "metadata": {
-                  "displayName": "Existing Storage Account",
-                  "description": "Select storage account from dropdown list",
-                  "strongType": "Microsoft.Storage/storageAccounts"
-               }
-            }
+         "extensions_Microsoft_Insights_VMDiagnosticsSettings_xmlCfg": {
+             "type": "String"
+         },
+         "extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountName": {
+             "type": "String"
+         },
+         "extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountKey": {
+             "type": "String"
+         },
+         "extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountEndPoint": {
+             "type": "String"
          }
       },
       "policyRule": {
@@ -70,31 +66,28 @@
                         "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
                         "contentVersion": "1.0.0.0",
                         "parameters": {
-                           "vmName": {
-                              "type": "string"
-                           },
-                           "location": {
-                              "type": "string"
-                           },
-                           "logAnalytics": {
-                              "type": "string"
-                           },
-                           "existingdiagnosticsStorageAccountName": {
-                              "type": "string"
-                           },
-                           "existingdiagnosticsStorageResourceGroup": {
-                              "type": "string"
-                           }
+                          "extensions_Microsoft_Insights_VMDiagnosticsSettings_xmlCfg": {
+                              "type": "String"
+                          },
+                          "extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountName": {
+                              "type": "String"
+                          },
+                          "extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountKey": {
+                              "type": "String"
+                          },
+                          "extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountEndPoint": {
+                              "type": "String"
+                          }
                         },
                         "variables": {
-                           "accountid": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/',parameters('existingdiagnosticsStorageResourceGroup'), '/providers/','Microsoft.Storage/storageAccounts/', parameters('existingdiagnosticsStorageAccountName'))]",
+                           "vmName": "diagnosticVMTest",    
                            "wadlogs": "<WadCfg> <DiagnosticMonitorConfiguration overallQuotaInMB=\"4096\" xmlns=\"https://schemas.microsoft.com/ServiceHosting/2010/10/DiagnosticsConfiguration\"> <DiagnosticInfrastructureLogs scheduledTransferLogLevelFilter=\"Error\"/> <WindowsEventLog scheduledTransferPeriod=\"PT1M\" > <DataSource name=\"Application!*[System[(Level = 1 or Level = 2)]]\" /> <DataSource name=\"Security!*[System[(Level = 1 or Level = 2)]]\" /> <DataSource name=\"System!*[System[(Level = 1 or Level = 2)]]\" /></WindowsEventLog>",
                            "wadperfcounters1": "<PerformanceCounters scheduledTransferPeriod=\"PT1M\"><PerformanceCounterConfiguration counterSpecifier=\"\\Processor(_Total)\\% Processor Time\" sampleRate=\"PT15S\" unit=\"Percent\"><annotation displayName=\"CPU utilization\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\Processor(_Total)\\% Privileged Time\" sampleRate=\"PT15S\" unit=\"Percent\"><annotation displayName=\"CPU privileged time\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\Processor(_Total)\\% User Time\" sampleRate=\"PT15S\" unit=\"Percent\"><annotation displayName=\"CPU user time\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\Processor Information(_Total)\\Processor Frequency\" sampleRate=\"PT15S\" unit=\"Count\"><annotation displayName=\"CPU frequency\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\System\\Processes\" sampleRate=\"PT15S\" unit=\"Count\"><annotation displayName=\"Processes\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\Process(_Total)\\Thread Count\" sampleRate=\"PT15S\" unit=\"Count\"><annotation displayName=\"Threads\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\Process(_Total)\\Handle Count\" sampleRate=\"PT15S\" unit=\"Count\"><annotation displayName=\"Handles\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\Memory\\% Committed Bytes In Use\" sampleRate=\"PT15S\" unit=\"Percent\"><annotation displayName=\"Memory usage\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\Memory\\Available Bytes\" sampleRate=\"PT15S\" unit=\"Bytes\"><annotation displayName=\"Memory available\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\Memory\\Committed Bytes\" sampleRate=\"PT15S\" unit=\"Bytes\"><annotation displayName=\"Memory committed\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\Memory\\Commit Limit\" sampleRate=\"PT15S\" unit=\"Bytes\"><annotation displayName=\"Memory commit limit\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk(_Total)\\% Disk Time\" sampleRate=\"PT15S\" unit=\"Percent\"><annotation displayName=\"Disk active time\" locale=\"en-us\"/></PerformanceCounterConfiguration>",
                            "wadperfcounters2": "<PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk(_Total)\\% Disk Read Time\" sampleRate=\"PT15S\" unit=\"Percent\"><annotation displayName=\"Disk active read time\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk(_Total)\\% Disk Write Time\" sampleRate=\"PT15S\" unit=\"Percent\"><annotation displayName=\"Disk active write time\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk(_Total)\\Disk Transfers/sec\" sampleRate=\"PT15S\" unit=\"CountPerSecond\"><annotation displayName=\"Disk operations\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk(_Total)\\Disk Reads/sec\" sampleRate=\"PT15S\" unit=\"CountPerSecond\"><annotation displayName=\"Disk read operations\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk(_Total)\\Disk Writes/sec\" sampleRate=\"PT15S\" unit=\"CountPerSecond\"><annotation displayName=\"Disk write operations\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk(_Total)\\Disk Bytes/sec\" sampleRate=\"PT15S\" unit=\"BytesPerSecond\"><annotation displayName=\"Disk speed\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk(_Total)\\Disk Read Bytes/sec\" sampleRate=\"PT15S\" unit=\"BytesPerSecond\"><annotation displayName=\"Disk read speed\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk(_Total)\\Disk Write Bytes/sec\" sampleRate=\"PT15S\" unit=\"BytesPerSecond\"><annotation displayName=\"Disk write speed\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\LogicalDisk(_Total)\\% Free Space\" sampleRate=\"PT15S\" unit=\"Percent\"><annotation displayName=\"Disk free space (percentage)\" locale=\"en-us\"/></PerformanceCounterConfiguration></PerformanceCounters>",
                            "wadcfgxstart": "[concat(variables('wadlogs'), variables('wadperfcounters1'), variables('wadperfcounters2'), '<Metrics resourceId=\"')]",
                            "wadmetricsresourceid": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name , '/providers/', 'Microsoft.Compute/virtualMachines/')]",
                            "wadcfgxend": "\"><MetricAggregation scheduledTransferPeriod=\"PT1H\"/><MetricAggregation scheduledTransferPeriod=\"PT1M\"/></Metrics></DiagnosticMonitorConfiguration></WadCfg>",
-                           "networkSecurityGroupName": "default-NSG"
+                           "networkSecurityGroupName": "diagnosticVMTest-nsg"
                          },
                         "resources": [
                            {
@@ -116,12 +109,12 @@
                                    "autoUpgradeMinorVersion": true,
                                    "settings": {
                                        "xmlCfg": "[base64(concat(variables('wadcfgxstart'), variables('wadmetricsresourceid'), variables('vmName'), variables('wadcfgxend')))]",
-                                       "storageAccount": "[parameters('existingdiagnosticsStorageAccountName')]"
+                                       "storageAccount": "[parameters('extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountName')]"
                                    },
                                    "protectedSettings": {
-                                       "storageAccountName": "[parameters('existingdiagnosticsStorageAccountName')]",
-                                       "storageAccountKey": "[listkeys(variables('accountid'), '2015-05-01-preview').key1]",
-                                       "storageAccountEndPoint": "https://core.windows.net"
+                                       "storageAccountName": "[parameters('extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountName')]",
+                                       "storageAccountKey": "[parameters('extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountKey')]",
+                                       "storageAccountEndPoint": "[parameters('extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountEndPoint')]"
                                    }
                                }
                            }
@@ -130,25 +123,22 @@
                         "outputs": {
                            "policy": {
                               "type": "string",
-                              "value": "[concat('Enabled monitoring for Windows VM', ': ', parameters('vmName'))]"
+                              "value": "[concat('Enabled monitoring for Windows VM', ': ',variables('vmName'))]"
                            }
                         }
                      },
                      "parameters": {
-                        "vmName": {
-                           "value": "[field('name')]"
+                        "extensions_Microsoft_Insights_VMDiagnosticsSettings_xmlCfg": {
+                            "value": "[parameters('extensions_Microsoft_Insights_VMDiagnosticsSettings_xmlCfg')]"
                         },
-                        "location": {
-                           "value": "[field('location')]"
+                        "extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountName": {
+                           "value": "[parameters('extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountName')]"
                         },
-                        "logAnalytics": {
-                           "value": "[parameters('logAnalytics')]"
+                        "extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountKey": {
+                           "value": "[parameters('extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountKey')]"
                         },
-                        "existingdiagnosticsStorageAccountName" :{
-                           "value": "[parameters('existingdiagnosticsStorageAccountName')]"
-                        },
-                        "existingdiagnosticsStorageResourceGroup" :{
-                           "value": "[parameters('existingdiagnosticsStorageResourceGroup')]"
+                        "extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountEndPoint": {
+                           "value": "[parameters('extensions_Microsoft_Insights_VMDiagnosticsSettings_storageAccountEndPoint')]"
                         }
                      }
                   }
